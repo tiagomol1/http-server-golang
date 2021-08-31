@@ -2,25 +2,19 @@ package users
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
-type User struct {
+type userStruct struct {
 	username string
-	isAdmin  bool
 	fullname string
 }
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	user := User{
-		fullname: "Tiago Murilo Ochôa da Luz",
-		isAdmin:  true,
-		username: "tiago.murilo",
-	}
 
-	fmt.Println(user)
-	userJson, err := json.Marshal(user)
+	user := userStruct{"tiago.murilo", "Tiago Murilo Ochoa da Luz"}
+
+	usersJson, err := json.Marshal(user.fullname)
 	if err != nil {
 		panic(err)
 	}
@@ -28,5 +22,5 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
-	w.Write(userJson)
+	w.Write(usersJson)
 }
